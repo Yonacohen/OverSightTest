@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverSightTest", "OverSightTest.csproj", "{922768F0-36F9-423F-8E6A-4D9E5DE7E53F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{922768F0-36F9-423F-8E6A-4D9E5DE7E53F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{922768F0-36F9-423F-8E6A-4D9E5DE7E53F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{922768F0-36F9-423F-8E6A-4D9E5DE7E53F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{922768F0-36F9-423F-8E6A-4D9E5DE7E53F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E00F247-A8F6-407E-9F17-48BED7F3702A}
+	EndGlobalSection
+EndGlobal
