@@ -1,3 +1,4 @@
+using OverSightTest;
 using OverSightTest.Interfaces;
 using OverSightTest.Services;
 
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<OversightDbContext>();
 builder.Services.AddScoped<ICouponService, CouponService>();
 
 var app = builder.Build();

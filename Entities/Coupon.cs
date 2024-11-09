@@ -1,18 +1,18 @@
 ﻿namespace OverSightTest.Entities
 {
     public class Coupon
-    {   
-        Guid Id { get; set; }
-        string Code { get; set; }
-        string Description {  get; set; }
+    {
+        public Guid Id { get; set; }
+        public string Code { get; set; }
+        public string Description {  get; set; }
 
-        Guid UserCreatorId {  get; set; }
-        DateTime CreationDateTime { get; set; }
-        float Discount {  get; set; }
-        DateTime ExpiredDate { get; set; }
-        bool DoublePromotions { get; set; }
-        bool IsLimited {  get; set; }  
-        int? LimitedUseNum { get; set; }   
+        public Guid UserCreatorId {  get; set; }
+        public DateTime CreationDateTime { get; set; }
+        public float Discount {  get; set; }
+        public DateTime ExpiredDate { get; set; }
+        public bool DoublePromotions { get; set; }
+        public bool IsLimited {  get; set; }  
+        public int? LimitedUseNum { get; set; }   
 
 
     }

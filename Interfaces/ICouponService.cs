@@ -4,6 +4,6 @@ namespace OverSightTest.Interfaces
 {
     public interface ICouponService
     {
-        void AddCoupon(CouponItem couponItem);
+        Response<CouponItem> AddCoupon(CouponItem couponItem);
     }
 }
