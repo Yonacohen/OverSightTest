@@ -1,4 +1,5 @@
-﻿using OverSightTest.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using OverSightTest.Entities;
 using OverSightTest.Interfaces;
 using OverSightTest.Models;
 
@@ -35,12 +36,59 @@ namespace OverSightTest.Services
                 ExpiredDate = couponItem.ExpiredDate,
                 IsLimited = couponItem.IsLimited,
                 LimitedUseNum = couponItem.LimitedUseNum,
-
             };
-            //_oversightDbContext.Coupons.Add()
+
+            _oversightDbContext.Coupons.Add(coupon);
+            // _oversightDbContext.SaveChanges();
+
+            response.Result = couponItem;
+            return response;
+        }
+
+        public Response DeleteCoupon(Guid couponItemId)
+        {
+            Response response = new();
+            try
+            {
+                Coupon? copoun = _oversightDbContext.Coupons.SingleOrDefault(c => c.Id == couponItemId);
+                if (copoun == null)
+                {
+                    response.SetError(Codes.InvalidArg, $"coupon item id {couponItemId} not exist");
+                    return response;
+                }
+
+                _oversightDbContext.Coupons.Remove(copoun);
+                //_oversightDbContext.SaveChanges();              
+            }
+            catch (Exception ex)
+            {
+                response.SetError(Codes.GeneralError, "error in delete coupon");
+            }
 
             return response;
-            //throw new NotImplementedException();
+        }
+        public Response<CouponItem> UpdateCoupon(CouponItem couponItem)
+        {
+            Response<CouponItem> response = new();
+            Coupon? dbCoupon = _oversightDbContext.Coupons.SingleOrDefault(c => c.Id == couponItem.Id);
+            if (dbCoupon == null)
+            {
+                response.SetError(Codes.InvalidArg, $"coupon item id {couponItem.Id} not exist");
+                return response;
+            }
+
+            dbCoupon.Description = couponItem.Description;
+            dbCoupon.IsLimited= couponItem.IsLimited;
+            dbCoupon.LimitedUseNum = couponItem.LimitedUseNum;    
+            dbCoupon.Discount= couponItem.Discount;
+            dbCoupon.DoublePromotions= couponItem.DoublePromotions;
+            dbCoupon.ExpiredDate= couponItem.ExpiredDate;
+            dbCoupon.DiscountType = couponItem.DiscountType;
+            //update all RELEVANT properties
+
+            _oversightDbContext.SaveChanges();
+            return response;
         }
     }
 }
+

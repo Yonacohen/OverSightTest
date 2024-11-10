@@ -19,8 +19,22 @@ namespace OverSightTest.Controllers
         [HttpPost]
         public IActionResult CreateCoupon([FromBody] CouponItem copounItem)
         {
-            _couponService.AddCoupon(copounItem);
-            return Ok();
+            var response = _couponService.AddCoupon(copounItem);
+            return response.ToActionResult();
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteCoupon([FromQuery] Guid id)
+        {
+            var response = _couponService.DeleteCoupon(id);
+            return response.ToActionResult();
+        }
+
+        [HttpPut]
+        public IActionResult UpdataCoupon([FromBody] CouponItem couponItem)
+        {
+            var response = _couponService.UpdateCoupon(couponItem);
+            return response.ToActionResult();
         }
     }
 }
