@@ -2,6 +2,7 @@
 using OverSightTest.Entities;
 using OverSightTest.Interfaces;
 using OverSightTest.Models;
+using System.Collections.Generic;
 
 namespace OverSightTest.Services
 {
@@ -78,15 +79,48 @@ namespace OverSightTest.Services
             }
 
             dbCoupon.Description = couponItem.Description;
-            dbCoupon.IsLimited= couponItem.IsLimited;
-            dbCoupon.LimitedUseNum = couponItem.LimitedUseNum;    
-            dbCoupon.Discount= couponItem.Discount;
-            dbCoupon.DoublePromotions= couponItem.DoublePromotions;
-            dbCoupon.ExpiredDate= couponItem.ExpiredDate;
+            dbCoupon.IsLimited = couponItem.IsLimited;
+            dbCoupon.LimitedUseNum = couponItem.LimitedUseNum;
+            dbCoupon.Discount = couponItem.Discount;
+            dbCoupon.DoublePromotions = couponItem.DoublePromotions;
+            dbCoupon.ExpiredDate = couponItem.ExpiredDate;
             dbCoupon.DiscountType = couponItem.DiscountType;
+             
             //update all RELEVANT properties
 
             _oversightDbContext.SaveChanges();
+            return response;
+        }
+        public Response<List<CouponItem>> GetAllCoupons()
+        {
+            var response = new Response<List<CouponItem>>();
+            List<CouponItem> couponItems = new();
+
+            try
+            {
+                var coupons = _oversightDbContext.Coupons.ToList();
+                foreach (var coupon in coupons)
+                {
+                    couponItems.Add(new CouponItem()
+                    {
+                        Code = coupon.Code,
+                        Id = coupon.Id,
+                        Description = coupon.Description,
+                        Discount = coupon.Discount,
+                        DiscountType = coupon.DiscountType,
+                        DoublePromotions = coupon.DoublePromotions,
+                        ExpiredDate = coupon.ExpiredDate,
+                        IsLimited = coupon.IsLimited,
+                        LimitedUseNum = coupon.LimitedUseNum,                         
+                    });
+                }
+
+                response.Result = couponItems;
+            }
+            catch (Exception ex)
+            {
+                response.SetError(Codes.GeneralError, "error in get all coupons");
+            }
             return response;
         }
     }
