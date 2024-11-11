@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace OverSightTest.Migrations
 {
     /// <inheritdoc />
-    public partial class InitCreate : Migration
+    public partial class AddCoupon : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,6 +26,7 @@ namespace OverSightTest.Migrations
                     UserCreatorId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     CreationDateTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Discount = table.Column<float>(type: "float", nullable: false),
+                    DiscountType = table.Column<int>(type: "int", nullable: false),
                     ExpiredDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DoublePromotions = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     IsLimited = table.Column<bool>(type: "tinyint(1)", nullable: false),

@@ -42,6 +42,9 @@ namespace OverSightTest.Migrations
                     b.Property<float>("Discount")
                         .HasColumnType("float");
 
+                    b.Property<int>("DiscountType")
+                        .HasColumnType("int");
+
                     b.Property<bool>("DoublePromotions")
                         .HasColumnType("tinyint(1)");
 

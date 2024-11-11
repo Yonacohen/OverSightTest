@@ -12,8 +12,8 @@ using OverSightTest;
 namespace OverSightTest.Migrations
 {
     [DbContext(typeof(OversightDbContext))]
-    [Migration("20241109192611_InitCreate")]
-    partial class InitCreate
+    [Migration("20241111152601_AddCoupon")]
+    partial class AddCoupon
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,6 +44,9 @@ namespace OverSightTest.Migrations
 
                     b.Property<float>("Discount")
                         .HasColumnType("float");
+
+                    b.Property<int>("DiscountType")
+                        .HasColumnType("int");
 
                     b.Property<bool>("DoublePromotions")
                         .HasColumnType("tinyint(1)");
