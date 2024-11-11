@@ -40,7 +40,7 @@ namespace OverSightTest.Services
             };
 
             _oversightDbContext.Coupons.Add(coupon);
-            // _oversightDbContext.SaveChanges();
+            _oversightDbContext.SaveChanges();
 
             response.Result = couponItem;
             return response;
@@ -85,6 +85,7 @@ namespace OverSightTest.Services
             dbCoupon.DoublePromotions = couponItem.DoublePromotions;
             dbCoupon.ExpiredDate = couponItem.ExpiredDate;
             dbCoupon.DiscountType = couponItem.DiscountType;
+            dbCoupon.CreationDateTime = DateTime.Now;
              
             //update all RELEVANT properties
 
@@ -111,7 +112,8 @@ namespace OverSightTest.Services
                         DoublePromotions = coupon.DoublePromotions,
                         ExpiredDate = coupon.ExpiredDate,
                         IsLimited = coupon.IsLimited,
-                        LimitedUseNum = coupon.LimitedUseNum,                         
+                        LimitedUseNum = coupon.LimitedUseNum,   
+                        CreationDateTime = coupon.CreationDateTime
                     });
                 }
 

@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<OversightDbContext>();
 builder.Services.AddScoped<ICouponService, CouponService>();
+builder.Services.AddScoped<IReportService, ReportsService>();
 
 var app = builder.Build();
 

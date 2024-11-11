@@ -7,7 +7,7 @@
         public string Description { get; set; }
 
         public DiscountType DiscountType { get; set; }
-
+        public DateTime CreationDateTime { get; set; }
         public float Discount { get; set; }
         public DateTime ExpiredDate { get; set; }
         public bool DoublePromotions { get; set; }

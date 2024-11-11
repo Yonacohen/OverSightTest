@@ -15,9 +15,7 @@ namespace OverSightTest
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseMySql(
-                    "Server=localhost; Database=OversightDb; Uid=yonatanc;Pwd = barzel2025; ",
-                    //Server=myServerAddress;Database=myDataBase;Uid=myUsername;Pwd=myPassword;
-                    //Server=myServerAddress;Port=1234;Database=myDataBase;Uid=myUsername;Pwd=myPassword;
+                    "Server=localhost; Database=OversightDb; Uid=yonatanc;Pwd = barzel2025;",           
                     new MySqlServerVersion(new Version(9, 1, 0)) // specify MySQL version here
                 );
             }
