@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using OverSightTest;
 using OverSightTest.Interfaces;
 using OverSightTest.Services;
@@ -12,6 +13,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<OversightDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<OversightDbContext>()
+    .AddDefaultTokenProviders();
+
 builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddScoped<IReportService, ReportsService>();
 
@@ -29,5 +34,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();
