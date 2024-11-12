@@ -27,6 +27,13 @@ namespace OverSightTest.Controllers
             var response = _reportService.GetCouponsByUser(userId);
             return response.ToActionResult();
         }
+
+        [HttpPost]
+        public IActionResult ExportToExcel()
+        {
+            var response = _reportService.ExportToExcel();
+            return response.ToActionResult();
+        }
     }
 
 }
