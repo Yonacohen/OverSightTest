@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OverSightTest.Interfaces;
 using OverSightTest.Models;
@@ -17,13 +18,15 @@ namespace OverSightTest.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateCoupon([FromBody] CouponItem copounItem)
-        {
-            var response = _couponService.AddCoupon(copounItem);
+        {            
+            var response = _couponService.AddCoupon(copounItem, User.Identity.Name);
             return response.ToActionResult();
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteCoupon([FromQuery] Guid id)
         {
             var response = _couponService.DeleteCoupon(id);
@@ -31,6 +34,7 @@ namespace OverSightTest.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdataCoupon([FromBody] CouponItem couponItem)
         {
             var response = _couponService.UpdateCoupon(couponItem);
@@ -38,6 +42,7 @@ namespace OverSightTest.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult GetCoupons()
         {
             var response = _couponService.GetAllCoupons();

@@ -22,9 +22,9 @@ namespace OverSightTest.Controllers
         }
 
         [HttpGet("user")]
-        public IActionResult GetByCreatedUser([FromQuery] Guid userId)
+        public IActionResult GetByCreatedUser()
         {
-            var response = _reportService.GetCouponsByUser(userId);
+            var response = _reportService.GetCouponsByUser(User.Identity.Name);
             return response.ToActionResult();
         }
 

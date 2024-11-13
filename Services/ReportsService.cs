@@ -22,13 +22,13 @@ namespace OverSightTest.Services
             _oversightDbContext = oversightDbContext;
         }
 
-        public Response<List<CouponItem>> GetCouponsByUser(Guid userId)
+        public Response<List<CouponItem>> GetCouponsByUser(string userName)
         {
             Response<List<CouponItem>> response = new();
 
             try
             {
-                var couponList = _oversightDbContext.Coupons.Where(coupon => coupon.UserCreatorId == userId).ToList();
+                var couponList = _oversightDbContext.Coupons.Where(coupon => coupon.UserName == userName).ToList();
                 List<CouponItem> couponItems = new();
 
                 foreach (var coupon in couponList)

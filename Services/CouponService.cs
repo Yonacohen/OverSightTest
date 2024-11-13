@@ -15,7 +15,7 @@ namespace OverSightTest.Services
             _oversightDbContext = oversightDbContext;
         }
 
-        public Response<CouponItem> AddCoupon(CouponItem couponItem)
+        public Response<CouponItem> AddCoupon(CouponItem couponItem, string userName)
         {
             Response<CouponItem> response = new();
 
@@ -44,6 +44,8 @@ namespace OverSightTest.Services
                 ExpiredDate = couponItem.ExpiredDate,
                 IsLimited = couponItem.IsLimited,
                 LimitedUseNum = couponItem.LimitedUseNum,
+                DiscountType = couponItem.DiscountType,
+                UserName = userName
             };
 
             _oversightDbContext.Coupons.Add(coupon);
@@ -139,6 +141,12 @@ namespace OverSightTest.Services
             if (dbCoupon == null)
             {
                 response.SetError(Codes.InvalidArg, "error in update order price");
+                return response;
+            }
+
+            if (DateTime.Now > dbCoupon.ExpiredDate)
+            {
+                response.SetError(Codes.GeneralError, "coupon is expired");
                 return response;
             }
 

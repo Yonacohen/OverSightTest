@@ -8,7 +8,7 @@ namespace OverSightTest.Entities
         public string Code { get; set; }
         public string Description {  get; set; }
 
-        public Guid UserCreatorId {  get; set; }
+        public string? UserName {  get; set; }
         public DateTime CreationDateTime { get; set; }
         public float Discount {  get; set; }
         public DiscountType DiscountType { get; set; }
