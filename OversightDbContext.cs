@@ -7,6 +7,7 @@ using OverSightTest.Entities;
 
 namespace OverSightTest
 {
+
     public class OversightDbContext : IdentityDbContext<IdentityUser>
 
     {

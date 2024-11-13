@@ -59,7 +59,7 @@ namespace OverSightTest.Services
                 }
 
                 _oversightDbContext.Coupons.Remove(copoun);
-                //_oversightDbContext.SaveChanges();              
+                _oversightDbContext.SaveChanges();              
             }
             catch (Exception ex)
             {
@@ -77,7 +77,7 @@ namespace OverSightTest.Services
                 response.SetError(Codes.InvalidArg, $"coupon item id {couponItem.Id} not exist");
                 return response;
             }
-
+            dbCoupon.Code = couponItem.Code;
             dbCoupon.Description = couponItem.Description;
             dbCoupon.IsLimited = couponItem.IsLimited;
             dbCoupon.LimitedUseNum = couponItem.LimitedUseNum;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OverSightTest.Interfaces;
 
@@ -15,8 +16,9 @@ namespace OverSightTest.Controllers
         {
             _accountService = accountService;
         }
-        
-        [HttpPost]
+
+        [Authorize(Roles ="Admin") ]
+        [HttpPost("user")]
         public async Task<IActionResult> AddUserAsync([FromQuery] string user, [FromQuery] string password)
         {
             var response =await _accountService.AddUserAsync(user, password);

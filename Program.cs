@@ -1,10 +1,33 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using OverSightTest;
 using OverSightTest.Interfaces;
 using OverSightTest.Services;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// JWT Authentication configuration
+var key = Encoding.ASCII.GetBytes("511536EF-F270-4058-80CA-1C89C192F69A"); // Use a secret key stored securely
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
 
 // Add services to the container.
 //test
