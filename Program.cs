@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using OverSightTest;
 using OverSightTest.Interfaces;
 using OverSightTest.Services;
@@ -9,7 +10,6 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// JWT Authentication configuration
 var key = Encoding.ASCII.GetBytes("511536EF-F270-4058-80CA-1C89C192F69A"); // Use a secret key stored securely
 builder.Services.AddAuthentication(options =>
 {
@@ -29,12 +29,39 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Add services to the container.
-//test
+
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Oversight", Version = "v1" });
+
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "enter bearer and token after"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                },
+                Array.Empty<string>()
+            }
+        });
+});
 
 builder.Services.AddDbContext<OversightDbContext>();
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
@@ -59,7 +86,7 @@ await accountService.AssignRoleToUserAsync("yonatanc", "Admin");
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API v1"));
 }
 
 app.UseHttpsRedirection();

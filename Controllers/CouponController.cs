@@ -43,5 +43,12 @@ namespace OverSightTest.Controllers
             var response = _couponService.GetAllCoupons();
             return response.ToActionResult();
         }
+        
+        [HttpPut("order-price")]
+        public IActionResult UpdateOrderPrice(string codeCoupon)
+        {
+            var response = _couponService.UpdateOrderPrice(codeCoupon);
+            return response.ToActionResult();
+        }
     }
 }

@@ -11,7 +11,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using Microsoft.EntityFrameworkCore;
 
-namespace OverSightTest
+namespace OverSightTest.Services
 {
     public class ReportsService : IReportService
     {

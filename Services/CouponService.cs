@@ -26,6 +26,13 @@ namespace OverSightTest.Services
                 return response;
             }
 
+            var dbCoupon = _oversightDbContext.Coupons.SingleOrDefault(c => c.Code == couponItem.Code);
+            if (dbCoupon != null)//this coupon code is already exists
+            {
+                response.SetError(Codes.GeneralError, "This coupon code is already exists");
+                return response;
+            }
+
             Coupon coupon = new Coupon()
             {
                 Id = Guid.NewGuid(),
@@ -59,7 +66,7 @@ namespace OverSightTest.Services
                 }
 
                 _oversightDbContext.Coupons.Remove(copoun);
-                _oversightDbContext.SaveChanges();              
+                _oversightDbContext.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -86,7 +93,7 @@ namespace OverSightTest.Services
             dbCoupon.ExpiredDate = couponItem.ExpiredDate;
             dbCoupon.DiscountType = couponItem.DiscountType;
             dbCoupon.CreationDateTime = DateTime.Now;
-             
+
             //update all RELEVANT properties
 
             _oversightDbContext.SaveChanges();
@@ -112,7 +119,7 @@ namespace OverSightTest.Services
                         DoublePromotions = coupon.DoublePromotions,
                         ExpiredDate = coupon.ExpiredDate,
                         IsLimited = coupon.IsLimited,
-                        LimitedUseNum = coupon.LimitedUseNum,   
+                        LimitedUseNum = coupon.LimitedUseNum,
                         CreationDateTime = coupon.CreationDateTime
                     });
                 }
@@ -123,6 +130,28 @@ namespace OverSightTest.Services
             {
                 response.SetError(Codes.GeneralError, "error in get all coupons");
             }
+            return response;
+        }
+        public Response<float> UpdateOrderPrice(string codeCoupon)
+        {
+            var response = new Response<float>();
+            Coupon? dbCoupon = _oversightDbContext.Coupons.SingleOrDefault(c => c.Code == codeCoupon);
+            if (dbCoupon == null)
+            {
+                response.SetError(Codes.InvalidArg, "error in update order price");
+                return response;
+            }
+
+            int orderPrice = 100;
+            if (dbCoupon.DiscountType == DiscountType.ILS)
+            {
+                response.Result = orderPrice - dbCoupon.Discount;
+            }
+            else
+            {
+                response.Result = orderPrice * (100 - dbCoupon.Discount) / 100;
+            }
+
             return response;
         }
     }
